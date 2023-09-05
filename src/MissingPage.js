@@ -1,6 +1,6 @@
 import React from 'react'
 
-const MissingPage = () => {
+function MissingPage() {
   return (
     <div>MissingPage</div>
   )

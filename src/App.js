@@ -1,32 +1,26 @@
-import Header from "./Header"
-import Nav from "./Nav"
-import Footer from "./Footer"
-import Home from "./Home"
-import NewPost from "./NewPost"
-import PostPage from "./PostPage"
-import About from "./About"
-import MissingPage from './MissingPage'
-import {  Route, Switch, useHistory } from "react-router-dom"
-import { useState, useEffect } from "react"
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Header from "./Header";
+import Nav from "./Nav";
+import Footer from "./Footer";
+import Home from "./Home";
+import NewPost from "./NewPost";
+import PostPage from "./PostPage";
+import About from "./About";
+import MissingPage from "./MissingPage";
 
 function App() {
   return (
     <div className="App">
-      <Header />
+      <Header title="React JS Blog" />
       <Nav />
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route exact path="/post">
-          <NewPost />
-        </Route>
-        <Route path="/post/:id">
-          <PostPage />
-        </Route>
-        <Route path='/about' Component={About} />
-        <Route path='*' Component={MissingPage} />
-      </Switch>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/post" element={<NewPost />} />
+        <Route path="/post/:id" element={<PostPage />} />
+        <Route path="/about" element={<About />} />
+        <Route path="*" element={<MissingPage />} />
+      </Routes>
       <Footer />
     </div>
   );
