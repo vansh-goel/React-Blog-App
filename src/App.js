@@ -13,9 +13,11 @@ function App() {
   return (
     <div className="App">
       <Header title="React JS Blog" />
-      <Nav />
+      <Nav search={search} setSearch={setSearch} />
       <Routes>
-        <Route exact path="/" element={<Home />} />
+        <Route exact path="/" element={<Home
+            posts={posts}
+         />}/>
         <Route exact path="/post" element={<NewPost />} />
         <Route path="/post/:id" element={<PostPage />} />
         <Route path="/about" element={<About />} />
