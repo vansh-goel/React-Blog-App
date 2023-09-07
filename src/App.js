@@ -11,32 +11,7 @@ import MissingPage from "./MissingPage";
 import { format } from "date-fns";
 
 function App() {
-  const [posts, setPosts] = React.useState([
-        {
-      id: 1,
-      title: "My First Post",
-      datetime: "July 01, 2021 11:17:36 AM",
-      body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis consequatur expedita, assumenda similique non optio! Modi nesciunt excepturi corrupti atque blanditiis quo nobis, non optio quae possimus illum exercitationem ipsa!"
-    },
-    {
-      id: 2,
-      title: "My 2nd Post",
-      datetime: "July 01, 2021 11:17:36 AM",
-      body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis consequatur expedita, assumenda similique non optio! Modi nesciunt excepturi corrupti atque blanditiis quo nobis, non optio quae possimus illum exercitationem ipsa!"
-    },
-    {
-      id: 3,
-      title: "My 3rd Post",
-      datetime: "July 01, 2021 11:17:36 AM",
-      body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis consequatur expedita, assumenda similique non optio! Modi nesciunt excepturi corrupti atque blanditiis quo nobis, non optio quae possimus illum exercitationem ipsa!"
-    },
-    {
-      id: 4,
-      title: "My Fourth Post",
-      datetime: "July 01, 2021 11:17:36 AM",
-      body: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis consequatur expedita, assumenda similique non optio! Modi nesciunt excepturi corrupti atque blanditiis quo nobis, non optio quae possimus illum exercitationem ipsa!"
-    }
-  ]);
+  const [posts, setPosts] = React.useState(localStorage.getItem('posts') ? JSON.parse(localStorage.getItem('posts')) : []);
   const [search, setSearch] = React.useState('');
   const [searchResults, setSearchResults] = React.useState([]);
   const navigate = useNavigate();
@@ -57,6 +32,7 @@ function App() {
     const newPost = {id, title: postTitle, datetime, body: postBody};
     const allPosts = [...posts, newPost];
     setPosts(allPosts);
+    localStorage.setItem('posts', JSON.stringify(allPosts));
     setPostTitle('');
     setPostBody(''); 
     navigate('/')
@@ -65,12 +41,13 @@ function App() {
   const handleDelete = (id) => {
     const postList = posts.filter(post => post.id !== id)
     setPosts(postList);
+    localStorage.setItem('posts', JSON.stringify(postList));
     navigate('/');
   }
 
   return (
     <div className="App">
-      <Header title="React JS Blog" />
+      <Header title="Blog Application" />
       <Nav search={search} setSearch={setSearch} />
       <Routes>
         <Route exact path="/" element={<Home
